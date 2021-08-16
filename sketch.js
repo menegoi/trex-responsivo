@@ -57,7 +57,7 @@ function setup(){
   trex.addAnimation("trexCollided", trexColidiu);
   
   //Adicionar escala e posição ao Trex
-  trex.scale = 0.8;
+  trex.scale = 0.7;
   
   //T-Rex Raio de Colisão
   //trex.debug = true;
@@ -65,7 +65,7 @@ function setup(){
   trex.setCollider("circle",0,0,40);
   
   //Criar Sprite do Solo
-  solo = createSprite(width/2 - 5,height-75,width,20);
+  solo = createSprite((width/2) - 5,height-75,width,20);
   solo.addImage("ground",imagemSolo);
   solo.x = solo.width / 2;
   
@@ -78,7 +78,7 @@ function setup(){
   grupoNuvens = new Group();
   
   //Criar Icones de Fim de Jogo
-  fimDeJogo = createSprite(width/2,(height/2)-50);
+  fimDeJogo = createSprite(width/2,height/2- 50);
   fimDeJogo.addImage("fimDeJogo",ImgFimDeJogo);
   fimDeJogo.scale = 0.7;
   fimDeJogo.visible = false;
@@ -91,21 +91,16 @@ function setup(){
 
 function draw(){
   
-  console.log(frameCount);
-  
   //Definir pano de fundo e limpar a tela
   background("white");
   
   //Marcar pontuação do Jogo
-  text("Pontuação: " + pontuacao, width-120, 50);
-  
-  //Mostrar o Modo de jogo no Console
-  //console.log("Modo de Jogo é: ", modoJogo);
+  text("Pontuação: " + pontuacao, width-110, 20);
   
   //Modificar estado do jogo
   if(modoJogo === JOGAR){
     // Atribuir velocidade x ao solo
-    solo.velocityX =  -(4 + 3*pontuacao/1000);
+    solo.velocityX =  -(5 + 3*pontuacao/1000);
     
     //Atualizar Placar
     pontuacao = pontuacao + Math.round(frameRate()/60);
@@ -121,12 +116,13 @@ function draw(){
     }
 
     //Saltar quando tecla espaço é pressionada
-    if((touches.length>0 || keyDown("space")) && trex.y > height-110) {
+    if((touches.lenght > 0 || keyDown("space")) && trex.y > height-110) {
       trex.velocityY = -10;
-      touches=[];
       
       //Adicionar efeito Sonoro T-Rex Salta
       somJump.play();
+      
+      touches.lenght = [];
     }
     
     //Atribuir gravidade para fazer o TRex descer
@@ -179,6 +175,9 @@ function draw(){
       
     }
     
+    // Se o botão reiniciar for clicado reset o jogo
+    reiniciar.touchStarted(reset());
+    
   } 
 
   
@@ -189,7 +188,7 @@ function draw(){
   drawSprites();
   
   //Mostrar Posição X e Y do mouse
-  //text("("+mouseX+";"+mouseY+")",mouseX-10,mouseY-10);
+  text("("+mouseX+";"+mouseY+")",mouseX-10,mouseY-10);
 }
 
 function gerarNuvens(){
@@ -200,11 +199,11 @@ function gerarNuvens(){
     
     //Adicionar imagem da nuvem nos sprites
     nuvem.addImage(imagemNuvem);
-    nuvem.scale = 0.9;
-    //console.log(nuvem.scale);
+    //nuvem.scale = 0.6;
+    nuvem.scale = random(0.2,0.7);
     
     //Tornar posição Y da nuvem aleatória
-    nuvem.y = Math.round(random(100,height-100));
+    nuvem.y = Math.round(random(height-200,height-400));
     
     //Garantir que profundidade da nuvem seja maior que a do T-Rex
     nuvem.depth = trex.depth;
