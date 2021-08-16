@@ -122,7 +122,7 @@ function draw(){
       //Adicionar efeito Sonoro T-Rex Salta
       somJump.play();
       
-      touches.lenght = [];
+      touches = [];
     }
     
     //Atribuir gravidade para fazer o TRex descer
@@ -164,14 +164,8 @@ function draw(){
     // Reiniciar ao clicar no ícone reiniciar
     if(mousePressedOver(reiniciar)){
       
-      //Registrar informação no console
-      console.log("Reinicair o jogo");
-      
       //Reiniciar o jogo
       reset();
-      
-      //Reiniciar Pontuação
-      pontuacao = 0;
       
     }
     
@@ -272,5 +266,9 @@ function reset(){
   
   // Modificar animação de T-Rex Collided para T-Rex Corredor
   trex.changeAnimation("correndo");
+  
+  //Reiniciar Pontuação
+  pontuacao = 0;
+      
   
 }
