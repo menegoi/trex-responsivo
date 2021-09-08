@@ -117,13 +117,13 @@ function draw(){
 
     //Saltar quando tecla espaço é pressionada
     if((touches.length > 0 || keyDown("space")) && trex.y > height-110) {
-      clear;
+      
       trex.velocityY = -10;
       
       //Adicionar efeito Sonoro T-Rex Salta
       somJump.play();
       
-      //touches = [];
+      touches = [];
     }
     
     //Atribuir gravidade para fazer o TRex descer
@@ -163,13 +163,14 @@ function draw(){
     reiniciar.visible = true;
     
     // Reiniciar ao clicar no ícone reiniciar
-    if(mousePressedOver(reiniciar)){
+    if(mousePressedOver(reiniciar) || touches.length > 0){
       
       //Reiniciar o jogo
       reset();
       
+      touches = [];
+      
     }
-  
     
   } 
 
@@ -184,9 +185,8 @@ function draw(){
   text("("+mouseX+";"+mouseY+")",mouseX-10,mouseY-10);
 }
 
-function touchStarted(){
-  reset();
-  
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function gerarNuvens(){
