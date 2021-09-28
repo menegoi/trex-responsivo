@@ -191,9 +191,9 @@ function draw(){
   //text("("+mouseX+";"+mouseY+")",mouseX-10,mouseY-10);
 }
 
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-}
+//function windowResized() {
+//  resizeCanvas(windowWidth, windowHeight);
+//}
 
 
 function gerarNuvens(){
