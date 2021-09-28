@@ -52,7 +52,7 @@ function setup(){
   createCanvas(windowWidth,windowHeight);  
   
   //Ajustar a taxa de quantos frames por segundo serão gerados.
-  frameRate(25);
+  //frameRate(40);
   
   //Criar sprite do T-Rex
   trex = createSprite(width*0.1,height*0.8,width*0.05,height*0.15);
@@ -102,6 +102,18 @@ function draw(){
   
   //Modificar estado do jogo
   if(modoJogo === JOGAR){
+    //Saltar quando tecla espaço é pressionada
+    if((keyDown("space") || touches.length > 0 ) && trex.y >height*0.80) {
+      trex.velocityY = -12;
+      touches = [];
+      
+      //Adicionar efeito Sonoro T-Rex Salta
+      somJump.play();
+    }
+    
+    //Atribuir gravidade para fazer o TRex descer
+    trex.velocityY = trex.velocityY + 0.5
+    
     // Atribuir velocidade x ao solo
     solo.velocityX =  -(4 + 3*pontuacao/1000);
     
@@ -118,17 +130,6 @@ function draw(){
       solo.x = solo.width / 2;
     }
 
-    //Saltar quando tecla espaço é pressionada
-    if((keyDown("space") || touches.length > 0 ) && trex.y >height*0.75) {
-      trex.velocityY = -15;
-      touches = [];
-      
-      //Adicionar efeito Sonoro T-Rex Salta
-      somJump.play();
-    }
-    
-    //Atribuir gravidade para fazer o TRex descer
-    trex.velocityY = trex.velocityY + 0.5
     
     //Gerar as nuvens
     gerarNuvens();
