@@ -105,7 +105,7 @@ function draw(){
     //Saltar quando tecla espaço é pressionada
     if((keyDown("space") || touches.length > 0 ) && trex.isTouching(solo)) {
       touches = [];
-      trex.velocityY = -15;
+      trex.velocityY = -12;
       
       
       //Adicionar efeito Sonoro T-Rex Salta
