@@ -226,7 +226,7 @@ function gerarNuvens(){
 
 function gerarObstaculos(){
   if(frameCount % 60 === 0){
-    var obstaculo = createSprite(width,height*0.85,10,40);
+    var obstaculo = createSprite(width,height*0.85,width*0.03,height*0.12);
     
     //Atribuir velocidade ao obstáculo
     obstaculo.velocityX = -(5 + pontuacao/1000);
