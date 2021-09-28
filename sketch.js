@@ -103,7 +103,7 @@ function draw(){
   //Modificar estado do jogo
   if(modoJogo === JOGAR){
     //Saltar quando tecla espaço é pressionada
-    if((keyDown("space") || touches.length > 0 ) && trex.y >height*0.80) {
+    if((keyDown("space") || touches.length > 0 ) && trex.isTouching(solo)) {
       trex.velocityY = -12;
       touches = [];
       
