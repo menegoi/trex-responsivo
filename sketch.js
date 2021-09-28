@@ -52,7 +52,7 @@ function setup(){
   createCanvas(windowWidth,windowHeight);  
   
   //Ajustar a taxa de quantos frames por segundo serão gerados.
-  frameRate(40);
+  //frameRate(40);
   
   //Criar sprite do T-Rex
   trex = createSprite(width*0.1,height*0.8,width*0.05,height*0.15);
@@ -191,9 +191,9 @@ function draw(){
   //text("("+mouseX+";"+mouseY+")",mouseX-10,mouseY-10);
 }
 
-//function windowResized() {
-//  resizeCanvas(windowWidth, windowHeight);
-//}
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
 
 
 function gerarNuvens(){
