@@ -172,10 +172,6 @@ function draw(){
       //Reiniciar o jogo
       reset();
       
-      
-      //Reiniciar Pontuação
-      pontuacao = 0;
-      
     }
     
   } 
@@ -193,6 +189,8 @@ function draw(){
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+  grupoObstaculos.y = height*0.85;
+  
   
 }
 
@@ -265,6 +263,8 @@ function reset(){
 
   //Mudar modo de jogo para Jogar
   modoJogo = JOGAR;
+  
+  pontuacao = 0;
   
   //Tornar icones "Fim de Jogo" e "Reiniciar" invisíveis
   fimDeJogo.visible = false;
