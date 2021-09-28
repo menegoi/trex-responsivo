@@ -52,7 +52,7 @@ function setup(){
   createCanvas(windowWidth,windowHeight);  
   
   //Ajustar a taxa de quantos frames por segundo serão gerados.
-  frameRate(25);
+  frameRate(30);
   
   //Criar sprite do T-Rex
   trex = createSprite(width*0.1,height*0.8,width*0.05,height*0.15);
@@ -105,7 +105,7 @@ function draw(){
     //Saltar quando tecla espaço é pressionada
     if((keyDown("space") || touches.length > 0 ) && trex.isTouching(solo)) {
       touches = [];
-      trex.velocityY = -10;
+      trex.velocityY = -12;
       
       
       //Adicionar efeito Sonoro T-Rex Salta
