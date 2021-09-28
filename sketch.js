@@ -52,7 +52,7 @@ function setup(){
   createCanvas(windowWidth,windowHeight);  
   
   //Ajustar a taxa de quantos frames por segundo serão gerados.
-  frameRate(10);
+  //frameRate(40);
   
   //Criar sprite do T-Rex
   trex = createSprite(width*0.1,height*0.8,width*0.05,height*0.15);
@@ -98,7 +98,7 @@ function draw(){
   background("white");
   
   //Marcar pontuação do Jogo
-  text("Pontuação: " + pontuacao, width*0.8, height*0.08);
+  text("Pontuação: " + pontuacao, width*0.7, height*0.08);
   
   //Modificar estado do jogo
   if(modoJogo === JOGAR){
@@ -120,7 +120,7 @@ function draw(){
 
     //Saltar quando tecla espaço é pressionada
     if((keyDown("space") || touches.length > 0 ) && trex.y >height*0.75) {
-      trex.velocityY = -10;
+      trex.velocityY = -12;
       touches = [];
       
       //Adicionar efeito Sonoro T-Rex Salta
@@ -166,12 +166,11 @@ function draw(){
     // Reiniciar ao clicar no ícone reiniciar
     if(mousePressedOver(reiniciar) || touches.length > 0 ){
       
-      //Registrar informação no console
-      console.log("Reinicair o jogo");
+      touches = [];
       
       //Reiniciar o jogo
       reset();
-      touches = [];
+      
       
       //Reiniciar Pontuação
       pontuacao = 0;
@@ -193,6 +192,7 @@ function draw(){
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+  
 }
 
 
