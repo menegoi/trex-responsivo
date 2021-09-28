@@ -51,8 +51,11 @@ function setup(){
   //Criar ambiente inicial de jogo
   createCanvas(windowWidth,windowHeight);  
   
+  //Ajustar a taxa de quantos frames por segundo serão gerados.
+  frameRate(40);
+  
   //Criar sprite do T-Rex
-  trex = createSprite(50,height-70,20,50);
+  trex = createSprite(width*0.1,height*0.8,width*0.05,height*0.15);
   trex.addAnimation("correndo", trexCorrendo);
   trex.addAnimation("trexCollided", trexColidiu);
   
@@ -65,12 +68,12 @@ function setup(){
   trex.setCollider("circle",0,0,40);
   
   //Criar Sprite do Solo
-  solo = createSprite((width/2) - 5,height-75,width,20);
+  solo = createSprite(width/2,height*0.85,width,height*0.08);
   solo.addImage("ground",imagemSolo);
   solo.x = solo.width / 2;
   
   //Criar Sprite do Solo Invisível
-  soloInvisivel = createSprite(width/2,height-5,width,125);
+  soloInvisivel = createSprite(width/2,height*0.9,width,height*0.05);
   soloInvisivel.visible = false;
   
   //Criar grupos de obstáculos e nuvens
@@ -78,14 +81,14 @@ function setup(){
   grupoNuvens = new Group();
   
   //Criar Icones de Fim de Jogo
-  fimDeJogo = createSprite(width/2,height/2- 50);
+  fimDeJogo = createSprite(width/2,height/2);
   fimDeJogo.addImage("fimDeJogo",ImgFimDeJogo);
-  fimDeJogo.scale = 0.7;
+  fimDeJogo.scale = 0.5;
   fimDeJogo.visible = false;
   
-  reiniciar = createSprite(width/2,height/2);
+  reiniciar = createSprite(width/2,height*0.4);
   reiniciar.addImage("reiniciar",ImgReiniciar);
-  reiniciar.scale = 0.7;
+  reiniciar.scale = 0.5;
   reiniciar.visible = false;
 }
 
@@ -95,12 +98,12 @@ function draw(){
   background("white");
   
   //Marcar pontuação do Jogo
-  text("Pontuação: " + pontuacao, width-110, 20);
+  text("Pontuação: " + pontuacao, width*0.8, height*0.08);
   
   //Modificar estado do jogo
   if(modoJogo === JOGAR){
     // Atribuir velocidade x ao solo
-    solo.velocityX =  -(5 + 3*pontuacao/1000);
+    solo.velocityX =  -(4 + 3*pontuacao/1000);
     
     //Atualizar Placar
     pontuacao = pontuacao + Math.round(frameRate()/60);
@@ -116,14 +119,12 @@ function draw(){
     }
 
     //Saltar quando tecla espaço é pressionada
-    if((touches.length > 0 || keyDown("space")) && trex.y > height-110) {
-      
-      trex.velocityY = -10;
+    if((keyDown("space") || touches.length > 0 )&& trex.y >height*0.8) {
+      trex.velocityY = -12;
+      touches = [];
       
       //Adicionar efeito Sonoro T-Rex Salta
       somJump.play();
-      
-      touches = [];
     }
     
     //Atribuir gravidade para fazer o TRex descer
@@ -163,12 +164,17 @@ function draw(){
     reiniciar.visible = true;
     
     // Reiniciar ao clicar no ícone reiniciar
-    if(mousePressedOver(reiniciar) || touches.length > 0){
+    if(mousePressedOver(reiniciar) || touches.length > 0 ){
+      
+      //Registrar informação no console
+      console.log("Reinicair o jogo");
       
       //Reiniciar o jogo
       reset();
-      
       touches = [];
+      
+      //Reiniciar Pontuação
+      pontuacao = 0;
       
     }
     
@@ -182,32 +188,31 @@ function draw(){
   drawSprites();
   
   //Mostrar Posição X e Y do mouse
-  text("("+mouseX+";"+mouseY+")",mouseX-10,mouseY-10);
+  //text("("+mouseX+";"+mouseY+")",mouseX-10,mouseY-10);
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
+
 function gerarNuvens(){
   //Escrever aqui o código para gerar as nuvens
   if(frameCount % 60 === 0){
-    var nuvem = createSprite(width+20,height-300,40,10);
+    var nuvem = createSprite(width,height*0.1,width*0.2, height*0.07);
     nuvem.velocityX = -3;
     
     //Adicionar imagem da nuvem nos sprites
     nuvem.addImage(imagemNuvem);
-    //nuvem.scale = 0.6;
-    nuvem.scale = random(0.2,0.7);
+    nuvem.scale = random(0.6,1);
     
     //Tornar posição Y da nuvem aleatória
-    nuvem.y = Math.round(random(height-200,height-400));
+    nuvem.y = Math.round(random(height*0.08,height*0.6));
     
     //Garantir que profundidade da nuvem seja maior que a do T-Rex
     nuvem.depth = trex.depth;
     trex.depth = trex.depth +1;
-    //console.log(nuvem.depth);
-    //console.log(trex.depth);
+
     
     //Atrubuir tempo de duração da variável
     //Vida = Distância x velocidade
@@ -221,7 +226,7 @@ function gerarNuvens(){
 
 function gerarObstaculos(){
   if(frameCount % 60 === 0){
-    var obstaculo = createSprite(width,height-95,20,30);
+    var obstaculo = createSprite(width,height*0.85,10,40);
     
     //Atribuir velocidade ao obstáculo
     obstaculo.velocityX = -(5 + pontuacao/1000);
@@ -229,7 +234,7 @@ function gerarObstaculos(){
     //Criar Obstáculos aleatórios
     var rand = Math.round(random(1,6));
     
-   switch(rand){
+    switch(rand){
         case 1: obstaculo.addImage(obstaculo1);
                 break;
         case 2: obstaculo.addImage(obstaculo2);
@@ -246,7 +251,7 @@ function gerarObstaculos(){
     }
     
     // Alterar escala e vida útil
-    obstaculo.scale = 0.6;
+    obstaculo.scale = 0.7;
     obstaculo.lifetime = 300;
     
     //Adicionar cada elemento de obstáculo criado ao grupo
@@ -270,9 +275,5 @@ function reset(){
   
   // Modificar animação de T-Rex Collided para T-Rex Corredor
   trex.changeAnimation("correndo");
-  
-  //Reiniciar Pontuação
-  pontuacao = 0;
-      
   
 }
