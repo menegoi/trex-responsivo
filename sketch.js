@@ -119,7 +119,7 @@ function draw(){
     }
 
     //Saltar quando tecla espaço é pressionada
-    if(touches.length > 0 || keyDown("space")) {
+    if((keyDown("space") || touches.length > 0 ) && trex.y >height*0.75) {
       trex.velocityY = -10;
       touches = [];
       
